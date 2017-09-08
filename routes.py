@@ -26,7 +26,6 @@ def index():
     return render_template("index.html")
 
 
-
 @app.route("/logLec", methods=["GET","POST"])
 def logLec():
     form = LoginForm()
@@ -38,9 +37,7 @@ def logLec():
             password = form.password.data
                     
             # Check if user in system
-            user = User.query.filter_by(email=email).first()
             if usersLec['email'] == email and usersLec['pwd'] == password:
-                session['email'] = form.email.data
                 return redirect(url_for('lec_page'))
             else:
                 return redirect(url_for('logLec'))
@@ -61,9 +58,7 @@ def logDem():
             password = form.password.data
                     
             # Check if user in system
-            user = User.query.filter_by(email=email).first()
             if usersDem['email'] == email and usersDem['pwd'] == password:
-                session['email'] = form.email.data
                 return redirect(url_for('dem_page'))
             else:
                 return redirect(url_for('logLec'))
