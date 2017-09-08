@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content %}
+	<main class="container signup-section">
+	<a class="btn-primary logout">logout</a>
+    <div class="section-content">
+        <h2>Demonstrator</h2>
+        <font size="+1">Details: <br></font>
+        <font size="3">Name:  John Doe</font>
+
+    </div>
+
+      <div class="section-content" id="class">
+      
+      		<h2>Welcome to your profile</h2>
+          
+          <p>Units that you are marking: </p>
+
+          <script>
+          function displayUnits() {
+              var classes = ["FIT2101", "FIT2107", "FIT2085"];
+
+              for(var i = 0; i < classes.length; i++){
+                document.getElementById("class").innerHTML  += "<a href=" + "{{ url_for('demonstrator_after') }}" + " class=" + "btn-secondary" + ">" + classes[i] + "</a>";
+                document.getElementById("class").innerHTML  += "<p>" + "</p>";
+              };
+          }
+            
+            displayUnits();
+          </script>
+          
+	   	
+          </div>
+  </main>
+{% endblock %}
