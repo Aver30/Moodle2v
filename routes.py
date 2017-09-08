@@ -30,24 +30,22 @@ def index():
 @app.route("/logLec", methods=["GET","POST"])
 def logLec():
     form = LoginForm()
-        
-        if request.method == "POST":
-            if form.validate() == False:
-                return render_template("logLec.html", form=form)
-                    else:
-                        email = form.email.data
-                            password = form.password.data
-                                
-                                # Check if user in system
-                                user = User.query.filter_by(email=email).first()
-                                    if usersLec['email'] == email and usersLec['pwd'] == password:
-session['email'] = form.email.data
-    return redirect(url_for('lec_page'))
+    if request.method == "POST":
+        if form.validate() == False:
+            return render_template("logLec.html", form=form)
         else:
-        return redirect(url_for('logLec'))
-            
-            elif request.method == 'GET':
-return render_template('logLec.html', form=form)
+            email = form.email.data
+            password = form.password.data
+                    
+            # Check if user in system
+            user = User.query.filter_by(email=email).first()
+            if usersLec['email'] == email and usersLec['pwd'] == password:
+                session['email'] = form.email.data
+                return redirect(url_for('lec_page'))
+            else:
+                return redirect(url_for('logLec'))
+    elif request.method == 'GET':
+        return render_template('logLec.html', form=form)
 
 
 
@@ -55,23 +53,23 @@ return render_template('logLec.html', form=form)
 def logDem():
     form = LoginForm()
         
-        if request.method == "POST":
-            if form.validate() == False:
-                return render_template("logDem.html", form=form)
-                    else:
-                        email = form.email.data
-                            password = form.password.data
-                                
-                                # Check if user in system
-                                user = User.query.filter_by(email=email).first()
-                                    if usersDem['email'] == email and usersDem['pwd'] == password:
-session['email'] = form.email.data
-    return redirect(url_for('dem_page'))
+    if request.method == "POST":
+        if form.validate() == False:
+            return render_template("logDem.html", form=form)
         else:
-        return redirect(url_for('logLec'))
+            email = form.email.data
+            password = form.password.data
+                    
+            # Check if user in system
+            user = User.query.filter_by(email=email).first()
+            if usersDem['email'] == email and usersDem['pwd'] == password:
+                session['email'] = form.email.data
+                return redirect(url_for('dem_page'))
+            else:
+                return redirect(url_for('logLec'))
             
-            elif request.method == 'GET':
-return render_template('logDem.html', form=form)
+    elif request.method == 'GET':
+        return render_template('logDem.html', form=form)
 
 
 
