@@ -93,7 +93,6 @@ def dem_page():
     return render_template("dem-page.html")
 
 
-
 @app.route("/demonstrator-after", methods=["GET", "POST"])
 def demonstrator_after():
     return render_template("demonstrator-after.html")
