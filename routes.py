@@ -25,7 +25,7 @@ usersDem = {'email': "nn@gmail.com", 'pwd': '1234'}
 def index():
     return render_template("index.html")
 
-
+s
 @app.route("/logLec", methods=["GET","POST"])
 def logLec():
     form = LoginForm()
@@ -79,9 +79,9 @@ def demonstrator_after():
     return render_template("demonstrator-after.html")
 
 
-@app.route("/lec-page", methods=["GET", "POST"])
+@app.route("/Lec-pageV2", methods=["GET", "POST"])
 def lec_page():
-    return render_template("lec-page.html")
+    return render_template("Lec-pageV2.html")
 
 
 if __name__ == "__main__":
