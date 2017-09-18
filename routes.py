@@ -25,7 +25,6 @@ usersDem = {'email': "nn@gmail.com", 'pwd': '1234'}
 def index():
     return render_template("index.html")
 
-s
 @app.route("/logLec", methods=["GET","POST"])
 def logLec():
     form = LoginForm()
