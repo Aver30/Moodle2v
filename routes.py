@@ -4,7 +4,7 @@ from forms import LoginForm
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/moodle2v'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/aakash'
 db.init_app(app)
 
 app.secret_key = "development-key"
@@ -20,6 +20,11 @@ usersDem = {'email': "nn@gmail.com", 'pwd': '1234'}
 # db.session.add(newuser)
 # db.session.commit()
 
+# Add Login details inside 
+#newuser = User('Aakash', 'Verma' ,'adt@gmail.com', 'L', '1234')
+#db.session.add(newuser)
+#db.session.commit()
+
 
 @app.route("/")
 def index():
@@ -28,18 +33,34 @@ def index():
 @app.route("/logLec", methods=["GET","POST"])
 def logLec():
     form = LoginForm()
+
     if request.method == "POST":
         if form.validate() == False:
             return render_template("logLec.html", form=form)
         else:
             email = form.email.data
             password = form.password.data
-                    
+            
+            # With Using Database
+            user = User.query.filter_by(email=email).first()
+            if user is not None and user.password == password:
+                return redirect(url_for('Lec_pageV2'))
+            else:
+                return redirect(url_for('logLec'))
+
+
+
+            # Without using database
+            '''        
             # Check if user in system
             if usersLec['email'] == email and usersLec['pwd'] == password:
                 return redirect(url_for('lec_page'))
             else:
                 return redirect(url_for('logLec'))
+            '''
+    
+
+
     elif request.method == 'GET':
         return render_template('logLec.html', form=form)
 
@@ -79,7 +100,7 @@ def demonstrator_after():
 
 
 @app.route("/Lec-pageV2", methods=["GET", "POST"])
-def lec_page():
+def Lec_pageV2():
     return render_template("Lec-pageV2.html")
 
 
