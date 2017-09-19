@@ -2,11 +2,13 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from models import db, User
 from forms import LoginForm
 
+'''
 # Testing Heroku
 import os
 import psycopg2
 import urlparse
 ###############
+'''
 
 app = Flask(__name__)
 
