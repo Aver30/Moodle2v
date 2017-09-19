@@ -2,12 +2,40 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from models import db, User
 from forms import LoginForm
 
+# Testing Heroku
+import os
+import psycopg2
+import urlparse
+###############
+
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost:5432/aakash'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://zmbecnmseaboot:dd4459daa1a19c28aa3b6cbf3f9574bba805cd67f08fda71a30647e71b798f1a@ec2-54-235-102-25.compute-1.amazonaws.com:5432/ddqe9v9b3kauuf'
 db.init_app(app)
 
 app.secret_key = "development-key"
+
+
+'''
+# Testing heroku ##############################
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["DATABASE"])
+
+conn = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
+################################################
+'''
+
+
+
+
+
+
 
 
 usersLec = {'email': "aakash@gmail.com", 'pwd': '1234'}

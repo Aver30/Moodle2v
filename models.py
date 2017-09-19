@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 class User(db.Model):
-  __tablename__ = 'lecanddem'
+  __tablename__ = 'moodle2vusers'
   firstname = db.Column(db.String(100))
   lastname = db.Column(db.String(100))
   email = db.Column(db.String(100))
