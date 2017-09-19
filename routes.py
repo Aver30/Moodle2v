@@ -2,13 +2,6 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from models import db, User
 from forms import LoginForm
 
-'''
-# Testing Heroku
-import os
-import psycopg2
-import urlparse
-###############
-'''
 
 app = Flask(__name__)
 
@@ -16,27 +9,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://zmbecnmseaboot:dd4459daa1a19
 db.init_app(app)
 
 app.secret_key = "development-key"
-
-
-'''
-# Testing heroku ##############################
-urlparse.uses_netloc.append("postgres")
-url = urlparse.urlparse(os.environ["DATABASE"])
-
-conn = psycopg2.connect(
-    database=url.path[1:],
-    user=url.username,
-    password=url.password,
-    host=url.hostname,
-    port=url.port
-)
-################################################
-'''
-
-
-
-
-
 
 
 
@@ -60,61 +32,35 @@ usersDem = {'email': "nn@gmail.com", 'pwd': '1234'}
 def index():
     return render_template("index.html")
 
-@app.route("/logLec", methods=["GET","POST"])
-def logLec():
+@app.route("/login", methods=["GET", "POST"])
+def login():
     form = LoginForm()
 
     if request.method == "POST":
         if form.validate() == False:
-            return render_template("logLec.html", form=form)
-        else:
-            email = form.email.data
-            password = form.password.data
-            
-            # With Using Database
-            user = User.query.filter_by(email=email).first()
-            if user is not None and user.password == password:
-                return redirect(url_for('Lec_pageV2'))
-            else:
-                return redirect(url_for('logLec'))
-
-
-
-            # Without using database
-            '''        
-            # Check if user in system
-            if usersLec['email'] == email and usersLec['pwd'] == password:
-                return redirect(url_for('lec_page'))
-            else:
-                return redirect(url_for('logLec'))
-            '''
-    
-
-
-    elif request.method == 'GET':
-        return render_template('logLec.html', form=form)
-
-
-
-@app.route("/logDem", methods=["GET","POST"])
-def logDem():
-    form = LoginForm()
+            return render_template("login.html", form=form)
         
-    if request.method == "POST":
-        if form.validate() == False:
-            return render_template("logDem.html", form=form)
         else:
             email = form.email.data
             password = form.password.data
-                    
-            # Check if user in system
-            if usersDem['email'] == email and usersDem['pwd'] == password:
-                return redirect(url_for('dem_page'))
-            else:
-                return redirect(url_for('logLec'))
             
+            # Get user from the databases
+            user = User.query.filter_by(email=email).first()
+
+            # FOR HELP: https://stackoverflow.com/questions/23744171/flask-get-all-products-from-table-and-iterate-over-them
+            # theList = User.query.all()
+
+            if user is not None and user.password == password and user.role == 'L':     # If the user is lecturer
+                return redirect(url_for('Lec_pageV2'))
+
+            elif user is not None and user.password == password and user.role == 'D':   # If the user is demonstrator
+                return redirect(url_for('dem_page'))
+
+            else:
+                return redirect(url_for('login'))
+
     elif request.method == 'GET':
-        return render_template('logDem.html', form=form)
+        return render_template('login.html', form=form)
 
 
 
