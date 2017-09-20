@@ -66,11 +66,12 @@ def login():
 @app.route("/signup", methods=["GET","POST"])
 def signup():
     form = SignupForm()
+    
     if request.method == "POST":
         if form.validate() == False:
             return render_template('signup.html', form=form)
         else:
-            newuser = User(form.first_name.data, form.last_name.data, form.email.data, 'D',form.password.data)
+            newuser = User(form.first_name.data, form.last_name.data, form.email.data, 'D', form.password.data)
             db.session.add(newuser)
             db.session.commit()
 

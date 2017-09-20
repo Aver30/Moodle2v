@@ -16,7 +16,7 @@ class User(db.Model):
     self.firstname = firstname.title()
     self.lastname = lastname.title()
     self.email = email.lower()
-    self.role = role.lower()
+    self.role = role
     self.pwd = password.lower()
      
   
