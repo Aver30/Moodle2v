@@ -65,7 +65,7 @@ def login():
 
 @app.route("/signup", methods=["GET","POST"])
 def signup():
-    form = SignupForm
+    form = SignupForm()
     if request.method == "POST":
         if form.validate() == False:
             return render_template('signup.html', form=form)
@@ -77,7 +77,7 @@ def signup():
             return redirect(url_for('Lec_pageV2'))
 
     elif request.method == "GET":
-    return render_template('signup.html', form=form)
+        return render_template('signup.html', form=form)
 
 
 
