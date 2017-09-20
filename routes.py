@@ -3,6 +3,7 @@ from models import db, User
 from forms import LoginForm, SignupForm
 
 
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://zmbecnmseaboot:dd4459daa1a19c28aa3b6cbf3f9574bba805cd67f08fda71a30647e71b798f1a@ec2-54-235-102-25.compute-1.amazonaws.com:5432/ddqe9v9b3kauuf'
@@ -71,6 +72,7 @@ def signup():
         if form.validate() == False:
             return render_template('signup.html', form=form)
         else:
+            
             newuser = User(form.first_name.data, form.last_name.data, form.email.data, 'D', form.password.data)
             db.session.add(newuser)
             db.session.commit()
