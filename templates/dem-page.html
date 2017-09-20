@@ -1,12 +1,18 @@
 {% extends "layout.html" %}
 
 {% block content %}
-	<main class="container signup-section">
-	<a class="btn-primary logout">logout</a>
+		<main class="container signup-section">
+
+    <a class="btn-primary logout">logout</a>
+
     <div class="section-content">
         <h2>Demonstrator</h2>
         <font size="+1">Details: <br></font>
         <font size="3">Name:  John Doe</font>
+
+        <div class="section-content">
+          <img src="http://homepage.physics.uiowa.edu/~sbaalrud/empty_profile.gif" style="width:150px;height:150px;">
+        </div>
 
     </div>
 
@@ -14,20 +20,12 @@
       
       		<h2>Welcome to your profile</h2>
           
-          <p>Units that you are marking: </p>
+          <p>Available Actions:</p>
 
-          <script>
-          function displayUnits() {
-              var classes = ["FIT2101", "FIT2107", "FIT2085"];
+          {% for student in students}
 
-              for(var i = 0; i < classes.length; i++){
-                document.getElementById("class").innerHTML  += "<a href=" + "{{ url_for('demonstrator_after') }}" + " class=" + "btn-secondary" + ">" + classes[i] + "</a>";
-                document.getElementById("class").innerHTML  += "<p>" + "</p>";
-              };
-          }
-            
-            displayUnits();
-          </script>
+          <a href="{{ url_for('AddMarks_Dem') }}" class="btn-secondary">Add Marks</a>
+          <a href="{{ url_for('ViewStudents_Dem') }}" class="btn-secondary">Add Marks</a>
           
 	   	
           </div>
