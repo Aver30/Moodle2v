@@ -96,6 +96,10 @@ def demonstrator_after():
 def Lec_pageV2():
     return render_template("Lec-pageV2.html")
 
+@app.route("/ViewStudents_Dem", methods=["GET", "POST"])
+def ViewStudents_Dem():
+    return render_template("ViewStudents_Dem.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
