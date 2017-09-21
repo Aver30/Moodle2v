@@ -15,12 +15,16 @@
 
     <div class="section-content">
         <h2>Students</h2>
-        <li class="mdl-list__item">
-          <span class="mdl-list__item-primary-content">
-          <i class="material-icons mdl-list__item-icon">person</i>
-            Bryan Cranston
-          </span>
-        </li>
+        {% for student in students %}
+            <li class="mdl-list__item">
+              <span class="mdl-list__item-primary-content">
+              <i class="material-icons mdl-list__item-icon">person</i>
+
+                    {{ student.firstname }} 
+
+              </span>
+            </li>
+        {% endfor %}
 
     </div>
   </main>
