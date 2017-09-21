@@ -120,11 +120,7 @@ def Lec_pageV2():
 
 @app.route("/ViewStudents_Dem", methods=["GET", "POST"])
 def ViewStudents_Dem():
-    return render_template("ViewStudents_Dem.html")
-
-@app.route('/')
-def DisplayStudents():
-    listOfStudents = student.query.all()
+    listOfStudents = Student.query.all()
     return render_template("ViewStudents_Dem.html", students = listOfStudents)
 
 
