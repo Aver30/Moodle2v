@@ -52,9 +52,11 @@ def login():
             # theList = User.query.all()
 
             if user is not None and user.password == password and user.role == 'L':     # If the user is lecturer
+                session['email'] = email
                 return redirect(url_for('Lec_pageV2'))
 
             elif user is not None and user.password == password and user.role == 'D':   # If the user is demonstrator
+                session['email'] = email
                 return redirect(url_for('dem_page'))
 
             else:
@@ -66,6 +68,7 @@ def login():
 
 @app.route("/signup", methods=["GET","POST"])
 def signup():
+
     form = SignupForm()
     
     if request.method == "POST":
@@ -86,8 +89,9 @@ def signup():
 @app.route("/enrollstd", methods=["GET","POST"])
 def enrollstd():
     form = EnrollForm()
-    
+
     if request.method == "POST":
+
         if form.validate() == False:
             return render_template('enrollstd.html', form=form)
         else:
@@ -106,12 +110,12 @@ def enrollstd():
 
 @app.route("/dem-page", methods=["GET", "POST"])
 def dem_page():
-    return render_template("dem-page.html")
 
-
-@app.route("/demonstrator-after", methods=["GET", "POST"])
-def demonstrator_after():
-    return render_template("demonstrator-after.html")
+    #email = session['email']
+    #user = User.query.filter_by(email=email).first()
+    #nameDem = user.firstname
+    nameDem = "Testing 123"
+    return render_template("dem-page.html", name = nameDem)
 
 
 @app.route("/Lec-pageV2", methods=["GET", "POST"])
