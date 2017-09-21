@@ -122,6 +122,11 @@ def Lec_pageV2():
 def ViewStudents_Dem():
     return render_template("ViewStudents_Dem.html")
 
+@app.route('/')
+def DisplayStudents():
+    listOfStudents = student.query.all()
+    return render_template("ViewStudents_Dem.html", students = listOfStudents)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
