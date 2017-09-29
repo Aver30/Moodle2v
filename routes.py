@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for
-from models import db, User, Student
+from models import db, User, FIT2101Student
 from forms import LoginForm, SignupForm, EnrollForm
 
 
@@ -11,22 +11,6 @@ db.init_app(app)
 
 app.secret_key = "development-key"
 
-
-
-usersLec = {'email': "aakash@gmail.com", 'pwd': '1234'}
-
-usersDem = {'email': "nn@gmail.com", 'pwd': '1234'}
-
-
-# Add a log in
-# newuser = User('Aakash', 'Verma', 'aakash@live.com', '12345')
-# db.session.add(newuser)
-# db.session.commit()
-
-# Add Login details inside 
-#newuser = User('Aakash', 'Verma' ,'adt@gmail.com', 'L', '1234')
-#db.session.add(newuser)
-#db.session.commit()
 
 
 @app.route("/")
@@ -47,9 +31,6 @@ def login():
             
             # Get user from the databases
             user = User.query.filter_by(email=email).first()
-
-            # FOR HELP: https://stackoverflow.com/questions/23744171/flask-get-all-products-from-table-and-iterate-over-them
-            # theList = User.query.all()
 
             if user is not None and user.password == password and user.role == 'L':     # If the user is lecturer
                 session['email'] = email
@@ -76,7 +57,7 @@ def signup():
             return render_template('signup.html', form=form)
         else:
             
-            newuser = User(form.first_name.data, form.last_name.data, form.email.data, 'D', form.password.data)
+            newuser = User(form.first_name.data, form.last_name.data, form.email.data, 'D', form.password.data, form.classes.data);
             db.session.add(newuser)
             db.session.commit()
 
@@ -96,16 +77,14 @@ def enrollstd():
             return render_template('enrollstd.html', form=form)
         else:
             
-            newstudent = Student(form.first_name.data, form.last_name.data, form.email.data)
+            newstudent = FIT2101Student(form.first_name.data, form.last_name.data, form.email.data, form.classes.data)
             db.session.add(newstudent)
             db.session.commit()
-
+            print("LLLLLLLLLLLLLLLLLLOOOOOOOo")
             return redirect(url_for('Lec_pageV2'))
 
     elif request.method == "GET":
         return render_template('enrollstd.html', form=form)
-
-
 
 
 @app.route("/dem-page", methods=["GET", "POST"])
@@ -124,7 +103,7 @@ def Lec_pageV2():
 
 @app.route("/ViewStudents_Dem", methods=["GET", "POST"])
 def ViewStudents_Dem():
-    listOfStudents = Student.query.all()
+    listOfStudents = FIT2101Student.query.all()
     return render_template("ViewStudents_Dem.html", students = listOfStudents)
 
 
