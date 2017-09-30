@@ -3,7 +3,7 @@
 {% block content %}
 		<main class="container signup-section">
 
-    <a class="btn-primary logout">logout</a>
+    <a href = "{{ url_for('logout') }}" class="btn-primary logout">logout</a>
 
     <div class="section-content">
         <h2>Demonstrator</h2>
@@ -21,8 +21,6 @@
       		<h2>Welcome to your profile</h2>
           
           <p>Available Actions:</p>
-
-        
 
           <a href="#" class="btn-secondary">Add Marks</a>
           <a href="{{ url_for('ViewStudents_Dem') }}" class="btn-secondary">View Students</a>

@@ -2,14 +2,14 @@
 
 {% block content %}
 	<main class="container signup-section">
-    <a class="btn-primary-logout">logout</a>
+    <a href = "{{ url_for('logout') }}" class="btn-primary logout">logout</a>
     <div class="section-content">
         <h2>Welcome to your profile</h2>
-        <font size="+1">Name: John Doe<br></font>
+        <font size="+1">Name: {{ name }}<br></font>
         <font size="3">
         </font>
      <div class="section-content">
-        <img src="http://homepage.physics.uiowa.edu/~sbaalrud/empty_profile.gif" style="width:150px;height:150px;">
+        <img src="http://homepage.physics.uiowa.edu/~sbaalrud/empty_profile.gif" style = "width:150px; height:150px;">
       </div>
 
     </div>

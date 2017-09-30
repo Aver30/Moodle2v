@@ -15,6 +15,7 @@ app.secret_key = "development-key"
 
 @app.route("/")
 def index():
+    session['email'] = None
     return render_template("index.html")
 
 @app.route("/login", methods=["GET", "POST"])
@@ -54,13 +55,15 @@ def signup():
     
     if request.method == "POST":
         if form.validate() == False:
+
+            print("THIS IS WORKING\n \n \n\n\n")
             return render_template('signup.html', form=form)
         else:
             
-            newuser = User(form.first_name.data, form.last_name.data, form.email.data, 'D', form.password.data, form.classes.data);
+            newuser = User(form.first_name.data, form.last_name.data, form.email.data, 'D', form.password.data, form.classes.data, 'fit2101');
             db.session.add(newuser)
             db.session.commit()
-
+            print("THIS IS WORKING\n \n \n\n\n")
             return redirect(url_for('Lec_pageV2'))
 
     elif request.method == "GET":
@@ -80,7 +83,7 @@ def enrollstd():
             newstudent = FIT2101Student(form.first_name.data, form.last_name.data, form.email.data, form.classes.data)
             db.session.add(newstudent)
             db.session.commit()
-            print("LLLLLLLLLLLLLLLLLLOOOOOOOo")
+
             return redirect(url_for('Lec_pageV2'))
 
     elif request.method == "GET":
@@ -90,21 +93,34 @@ def enrollstd():
 @app.route("/dem-page", methods=["GET", "POST"])
 def dem_page():
 
-    #email = session['email']
-    #user = User.query.filter_by(email=email).first()
-    #nameDem = user.firstname
-    nameDem = "Testing 123"
+    email = session['email']
+    user = User.query.filter_by(email=email).first()
+    nameDem = user.firstname
     return render_template("dem-page.html", name = nameDem)
 
 
 @app.route("/Lec-pageV2", methods=["GET", "POST"])
 def Lec_pageV2():
-    return render_template("Lec-pageV2.html")
+    email = session['email']
+    user = User.query.filter_by(email=email).first()
+    nameDem = user.firstname + " " + user.lastname
+
+    # If nothing in session, then return to index page
+    if session['email'] is None:
+        return redirect(url_for('index'))
+
+    return render_template("Lec-pageV2.html", name = nameDem)
 
 @app.route("/ViewStudents_Dem", methods=["GET", "POST"])
 def ViewStudents_Dem():
     listOfStudents = FIT2101Student.query.all()
     return render_template("ViewStudents_Dem.html", students = listOfStudents)
+
+@app.route("/logout")
+def logout():
+    session.pop('email', None)
+    return redirect(url_for('index'))
+
 
 
 if __name__ == "__main__":
