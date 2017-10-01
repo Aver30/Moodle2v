@@ -115,6 +115,7 @@ def Lec_pageV2():
 def ViewStudents_Dem():
     user = User.query.filter_by(email=email).first()
     stu_classes = user.classes
+    email = session['email']
     
     listOfStudents = []
     students_list = FIT2101Student.query.all()
