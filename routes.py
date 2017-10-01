@@ -126,7 +126,7 @@ def ViewStudents_Dem():
             if i.classes == stu_classes:
                 listOfStudents.append(i)
                 
-         stu_classes = 'Class ' + str(user.classes)
+        stu_classes = 'Class ' + str(user.classes)
                 
     elif user.role == 'L':
         listOfStudents = FIT2101Student.query.all()
