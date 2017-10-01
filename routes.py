@@ -113,7 +113,16 @@ def Lec_pageV2():
 
 @app.route("/ViewStudents_Dem", methods=["GET", "POST"])
 def ViewStudents_Dem():
-    listOfStudents = FIT2101Student.query.all()
+    user = User.query.filter_by(email=email).first()
+    class = user.classes
+    
+    listOfStudents = []
+    students_list = FIT2101Student.query.all()
+    
+    for i in students_list:
+        if i.classes == class:
+            listOfStudents.append(i)
+   
     return render_template("ViewStudents_Dem.html", students = listOfStudents)
 
 @app.route("/logout")
