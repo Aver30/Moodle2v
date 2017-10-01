@@ -115,14 +115,19 @@ def Lec_pageV2():
 def ViewStudents_Dem():
     email = session['email']
     user = User.query.filter_by(email=email).first()
-    stu_classes = user.classes
     
-    listOfStudents = []
-    students_list = FIT2101Student.query.all()
+    if user.role == 'D':
+        stu_classes = user.classes
+
+        listOfStudents = []
+        students_list = FIT2101Student.query.all()
+
+        for i in students_list:
+            if i.classes == stu_classes:
+                listOfStudents.append(i)
     
-    for i in students_list:
-        if i.classes == stu_classes:
-            listOfStudents.append(i)
+    elif user.role == 'L':
+        listOfStudents = FIT2101Student.query.all()
    
     return render_template("ViewStudents_Dem.html", students = listOfStudents)
 
