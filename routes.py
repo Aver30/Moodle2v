@@ -125,11 +125,14 @@ def ViewStudents_Dem():
         for i in students_list:
             if i.classes == stu_classes:
                 listOfStudents.append(i)
-    
+                
+         stu_classes = 'Class ' + str(user.classes)
+                
     elif user.role == 'L':
         listOfStudents = FIT2101Student.query.all()
-   
-    return render_template("ViewStudents_Dem.html", students = listOfStudents)
+        stu_classes = 'Lecturer'
+        
+    return render_template("ViewStudents_Dem.html", students = listOfStudents, requiredClass = stu_classes)
 
 @app.route("/logout")
 def logout():
