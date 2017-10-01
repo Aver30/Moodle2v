@@ -113,9 +113,9 @@ def Lec_pageV2():
 
 @app.route("/ViewStudents_Dem", methods=["GET", "POST"])
 def ViewStudents_Dem():
+    email = session['email']
     user = User.query.filter_by(email=email).first()
     stu_classes = user.classes
-    email = session['email']
     
     listOfStudents = []
     students_list = FIT2101Student.query.all()
