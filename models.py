@@ -42,5 +42,33 @@ class FIT2101Student(db.Model):
     self.classes = classes.lower()
 
 
+class FIT2101Rubric(db.Model):
+  __tablename__ = 'fit2101rubric'
+  uid = db.Column(db.Integer, primary_key = True)
+  criteria= db.Column(db.String(1000))
+  poor = db.Column(db.String(1000))
+  satisfactory = db.Column(db.String(1000))
+  good = db.Column(db.String(1000))
+  totalmarks = db.Column(db.String(1000))
+
+  def __init__(self, criteria, poor, satisfactory, good, totalMarks): 
+    self.criteria = criteria.lower()
+    self.poor = poor.lower()
+    self.satisfactory = satisfactory.lower()
+    self.good = good.lower()
+    self.totalmarks = int(totalMarks)    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -23,3 +23,4 @@ class EnrollForm(Form):
   classes = StringField('Class', validators=[DataRequired("Please enter the class.")])
   submit = SubmitField('Sign up')
 
+

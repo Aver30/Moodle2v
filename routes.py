@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for
-from models import db, User, FIT2101Student
+from models import db, User, FIT2101Student, FIT2101Rubric
 from forms import LoginForm, SignupForm, EnrollForm
 
 
@@ -55,19 +55,52 @@ def signup():
     
     if request.method == "POST":
         if form.validate() == False:
-
-            print("THIS IS WORKING\n \n \n\n\n")
             return render_template('signup.html', form=form)
         else:
             
             newuser = User(form.first_name.data, form.last_name.data, form.email.data, 'D', form.password.data, form.classes.data, 'fit2101');
             db.session.add(newuser)
             db.session.commit()
-            print("THIS IS WORKING\n \n \n\n\n")
             return redirect(url_for('Lec_pageV2'))
 
     elif request.method == "GET":
         return render_template('signup.html', form=form)
+
+
+@app.route("/addRubric", methods=["GET", "POST"])
+def addRubric():
+
+    if request.method == "POST":
+
+        criteria = request.form['column1']
+        poor = request.form['column2']
+        satisfactory = request.form['column3']
+        good = request.form['column4']
+        totalMarks = request.form['column5']
+
+        # Empty relaod page
+        if criteria == '' or poor == '' or satisfactory == '' or good == '' or totalMarks == '':
+            return redirect(url_for("addRubric"))
+        
+        # add row of rubric
+        newrow = FIT2101Rubric(request.form['column1'], request.form['column2'], request.form['column3'], request.form['column4'], request.form['column5'])
+        db.session.add(newrow)
+        db.session.commit()
+
+        if request.form['submit'] == "Add More":
+            return render_template("Addrubric.html")
+        else:
+            return render_template("Lec-pageV2.html")
+
+
+    return render_template("Addrubric.html")
+
+
+
+
+
+
+
 
 
 @app.route("/enrollstd", methods=["GET","POST"])
@@ -92,7 +125,6 @@ def enrollstd():
 
 @app.route("/dem-page", methods=["GET", "POST"])
 def dem_page():
-
     email = session['email']
     user = User.query.filter_by(email=email).first()
     nameDem = user.firstname
@@ -110,6 +142,9 @@ def Lec_pageV2():
         return redirect(url_for('index'))
 
     return render_template("Lec-pageV2.html", name = nameDem)
+
+
+
 
 @app.route("/ViewStudents_Dem", methods=["GET", "POST"])
 def ViewStudents_Dem():
