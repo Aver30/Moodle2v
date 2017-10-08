@@ -42,6 +42,7 @@ class FIT2101Student(db.Model):
     self.classes = classes.lower()
 
 
+
 class FIT2101Rubric(db.Model):
   __tablename__ = 'fit2101rubric'
   uid = db.Column(db.Integer, primary_key = True)
