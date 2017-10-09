@@ -181,8 +181,10 @@ def ViewStudents_Dem():
 @app.route("/markstudent", methods=["GET","POST"])
 def markstudent():
 
-    # Student in Session['student']
+    # Student in Session['student'] gives the email!!!
     print(session['student'])
+
+    rubric = FIT2101Rubric.query.all()
     
     return render_template("markStudent.html")
 
