@@ -20,11 +20,14 @@
             <li class="mdl-list__item">
               <span class="mdl-list__item-primary-content">
               <i class="material-icons mdl-list__item-icon">person</i>
-                    {{ student.firstname }}   
-                    <form action="/ViewStudents_Dem" method="POST" >
-                    <button class="btn-primary" type="submit" name="Mark" value="{{  student.email  }}">
-                    Mark
-                    </button> </form>
+                    {{ student.firstname }} {{ student.lastname }}
+                  
+                    <main class="container signup-section">
+                        <form action="/ViewStudents_Dem" method="POST" >
+                        <button class="btn-primary" type="submit" name="Mark" value="{{  student.email  }}">
+                        Mark
+                        </button> </form>
+                     </main>
               </span>
             </li>
 
