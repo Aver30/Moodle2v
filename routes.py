@@ -132,6 +132,9 @@ def dem_page():
 
 @app.route("/Lec-pageV2", methods=["GET", "POST"])
 def Lec_pageV2():
+    if request.method == "POST":
+        return redirect(url_for('addgroup'))
+
     email = session['email']
     user = User.query.filter_by(email=email).first()
     nameDem = user.firstname + " " + user.lastname
@@ -195,8 +198,6 @@ def addgroup():
         for i in students_list:
             if i.classes == stu_classes:
                 listOfStudents.append(i)
-                
-        stu_classes = 'Class ' + str(user.classes)
                 
     elif user.role == 'L':
         listOfStudents = FIT2101Student.query.all()

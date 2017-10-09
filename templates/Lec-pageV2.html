@@ -21,6 +21,11 @@
           
           <p>Available Actions: </p>
 
+          <form action="/dem-page" method="POST" >
+          <button class="btn-secondary" type="submit" name="AddGroup" value="AddGroup">
+          Add Group
+          </button> </form>
+
           <a href = "{{ url_for('addRubric') }}" class = "btn-secondary">Add Rubric</a>
           <a href = "{{ url_for('enrollstd') }}" class = "btn-secondary">Enroll Student</a>
           <a href = "{{ url_for('signup') }}" class = "btn-secondary">Add Demonstrator</a>
