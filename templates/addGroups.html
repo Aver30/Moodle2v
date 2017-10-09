@@ -19,17 +19,48 @@
 
    
 <form class="form-group" method="POST" action="{{ url_for('addgroup') }}">
+
+
   <div class="form-group">
     <div class="input-group">
-        <span class="input-group-addon">Please select</span>
+        <span class="input-group-addon">Enter Student 1</span>
             <select name="comp_select" class="selectpicker form-control">
               {% for o in data %}
-              <option value="{{ o.name }}">{{ o.firstname }}</option>
+              <option value="{{ o.name }}">{{ o.firstname }} {{o.lastname}}</option>
               {% endfor %}
             </select>
     </div>
-    <button type="submit" class="btn btn-default">Go</button>
+
+<form class="form-group" method="POST" action="{{ url_for('addgroup') }}">
+  <div class="form-group">
+    <div class="input-group">
+        <span class="input-group-addon">Enter Student 2</span>
+            <select name="comp_select" class="selectpicker form-control">
+              {% for o in data %}
+              <option value="{{ o.name }}">{{ o.firstname }} {{o.lastname}}</option>
+              {% endfor %}
+            </select>
+    </div>
+
+  <form class="form-group" method="POST" action="{{ url_for('addgroup') }}">
+  <div class="form-group">
+    <div class="input-group">
+        <span class="input-group-addon">Enter Student 3</span>
+            <select name="comp_select" class="selectpicker form-control">
+              {% for o in data %}
+              <option value="{{ o.name }}">{{ o.firstname }} {{o.lastname}}</option>
+              {% endfor %}
+            </select>
+    </div>
+
+
+    Group Name: <input type="text" name="groupname" style="width:75px;height:25px;">
+
   </div>
+
+  <button type="submit" class="btn-primary">Submit</button>
+
+
 </form>
 
 
