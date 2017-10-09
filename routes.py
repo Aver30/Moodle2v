@@ -97,12 +97,6 @@ def addRubric():
 
 
 
-
-
-
-
-
-
 @app.route("/enrollstd", methods=["GET","POST"])
 def enrollstd():
     form = EnrollForm()
@@ -148,26 +142,43 @@ def Lec_pageV2():
 
 @app.route("/ViewStudents_Dem", methods=["GET", "POST"])
 def ViewStudents_Dem():
-    email = session['email']
-    user = User.query.filter_by(email=email).first()
     
-    if user.role == 'D':
-        stu_classes = user.classes
-
-        listOfStudents = []
-        students_list = FIT2101Student.query.all()
-
-        for i in students_list:
-            if i.classes == stu_classes:
-                listOfStudents.append(i)
-                
-        stu_classes = 'Class ' + str(user.classes)
-                
-    elif user.role == 'L':
-        listOfStudents = FIT2101Student.query.all()
-        stu_classes = 'Lecturer'
+    if request.method == 'POST':
+        print("This WORKS \n\n\n\n")
         
-    return render_template("ViewStudents_Dem.html", students = listOfStudents, requiredClass = stu_classes)
+        session['student'] = request.form["Mark"]
+        
+        return redirect(url_for("markstudent"))
+
+
+    elif request.method == 'GET':
+        email = session['email']
+        user = User.query.filter_by(email=email).first()
+       
+        # Displaying Students:
+        if user.role == 'D':
+            stu_classes = user.classes
+            listOfStudents = []
+            students_list = FIT2101Student.query.all()
+            for i in students_list:
+                if i.classes == stu_classes:
+                    listOfStudents.append(i)
+                    
+            stu_classes = 'Class ' + str(user.classes)
+                    
+        elif user.role == 'L':
+            listOfStudents = FIT2101Student.query.all()
+            stu_classes = 'Lecturer'
+
+        return render_template("ViewStudents_Dem.html", students = listOfStudents, requiredClass = stu_classes)
+
+
+@app.route("/markstudent", methods=["GET","POST"])
+def markstudent():
+    print(session['student'])
+    
+    return render_template("markStudent.html")
+
 
 @app.route("/logout")
 def logout():
