@@ -182,11 +182,12 @@ def ViewStudents_Dem():
 def markstudent():
 
     # Student in Session['student'] gives the email!!!
-    print(session['student'])
-
-    rubric = FIT2101Rubric.query.all()
+    User = session['student']
+    user = FIT2101Student.query.filter_by(email=email).first()
     
-    return render_template("markStudent.html")
+    listOfRubrics = FIT2101Rubric.query.all()
+    
+    return render_template("markStudent.html", rubric = listOfRubrics, markStudent = user)
 
 @app.route("/addgroup", methods=["GET","POST"])
 def addgroup():
