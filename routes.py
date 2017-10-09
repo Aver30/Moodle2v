@@ -120,7 +120,7 @@ def enrollstd():
 @app.route("/dem-page", methods=["GET", "POST"])
 def dem_page():
     if request.method == "POST":
-        print("THIS IS WORKING \n\n\n\n\n")
+       
         if request.form["AddGroup"] == 'AddGroup':
             return redirect(url_for('addgroup'))
 
@@ -152,6 +152,7 @@ def Lec_pageV2():
 def ViewStudents_Dem():
     
     if request.method == 'POST':
+        session['student'] = request.form['Mark']
         return redirect(url_for("markstudent"))
 
 
