@@ -119,6 +119,11 @@ def enrollstd():
 
 @app.route("/dem-page", methods=["GET", "POST"])
 def dem_page():
+    if request.method == "POST":
+        print("THIS IS WORKING \n\n\n\n\n")
+        if request.form["AddGroup"] == 'AddGroup':
+            return redirect(url_for('addgroup'))
+
     email = session['email']
     user = User.query.filter_by(email=email).first()
     nameDem = user.firstname
@@ -144,10 +149,6 @@ def Lec_pageV2():
 def ViewStudents_Dem():
     
     if request.method == 'POST':
-        print("This WORKS \n\n\n\n")
-        
-        session['student'] = request.form["Mark"]
-        
         return redirect(url_for("markstudent"))
 
 
@@ -175,9 +176,33 @@ def ViewStudents_Dem():
 
 @app.route("/markstudent", methods=["GET","POST"])
 def markstudent():
+
+    # Student in Session['student']
     print(session['student'])
     
     return render_template("markStudent.html")
+
+@app.route("/addgroup", methods=["GET","POST"])
+def addgroup():
+    email = session['email']
+    user = User.query.filter_by(email=email).first()
+
+    # Displaying Students:
+    if user.role == 'D':
+        stu_classes = user.classes
+        listOfStudents = []
+        students_list = FIT2101Student.query.all()
+        for i in students_list:
+            if i.classes == stu_classes:
+                listOfStudents.append(i)
+                
+        stu_classes = 'Class ' + str(user.classes)
+                
+    elif user.role == 'L':
+        listOfStudents = FIT2101Student.query.all()
+        stu_classes = 'Lecturer'
+
+    return render_template("addGroups.html", data=listOfStudents )
 
 
 @app.route("/logout")

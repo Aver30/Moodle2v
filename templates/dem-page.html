@@ -22,8 +22,12 @@
           
           <p>Available Actions:</p>
 
-          <a href= "#" class="btn-secondary">Add Marks</a>
-          <a href= "{{ url_for('ViewStudents_Dem') }}" class="btn-secondary">View Students</a>
+          <form action="/dem-page" method="POST" >
+          <button class="btn-primary" type="submit" name="AddGroup" value="AddGroup">
+          Add Group
+          </button> </form>
+
+          <a href= "{{ url_for('ViewStudents_Dem') }}" class="btn-secondary">Students</a>
           
 	   	
           </div>

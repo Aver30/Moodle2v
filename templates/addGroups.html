@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</head>
+
+ <div class="section-content">
+        <h2> {{ requiredClass }} </h2>
+ </div>
+
+<ul class="demo-list-icon mdl-list">
+<main class="container signup-section">
+
+<a href = "{{ url_for('logout') }}" class="btn-primary logout">logout</a>
+
+   
+<form class="form-group" method="POST" action="{{ url_for('addgroup') }}">
+  <div class="form-group">
+    <div class="input-group">
+        <span class="input-group-addon">Please select</span>
+            <select name="comp_select" class="selectpicker form-control">
+              {% for o in data %}
+              <option value="{{ o.name }}">{{ o.firstname }}</option>
+              {% endfor %}
+            </select>
+    </div>
+    <button type="submit" class="btn btn-default">Go</button>
+  </div>
+</form>
+
+
+
+
+
+
+  </main>
+</ul>
+
+{% endblock %}
