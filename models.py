@@ -64,13 +64,15 @@ class FIT2101Rubric(db.Model):
   satisfactory = db.Column(db.String(1000))
   good = db.Column(db.String(1000))
   totalmarks = db.Column(db.String(1000))
+  assessment = db.Column(db.String(100))
 
-  def __init__(self, criteria, poor, satisfactory, good, totalMarks): 
+  def __init__(self, criteria, poor, satisfactory, good, totalMarks, assessment): 
     self.criteria = criteria.lower()
     self.poor = poor.lower()
     self.satisfactory = satisfactory.lower()
     self.good = good.lower()
     self.totalmarks = int(totalMarks)    
+    self.assessment = assessment
 
 
 

@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<main class = "hero-section">
+<div class = "container">
+  <div class = "section-content">
+     <h2>Select Assessment</h2>
+    
+
+     <form action="/selectassess" method="POST" >
+        <button class="btn-secondary" type="submit" name="Ass" value="Assessment 1">Assessment 1</button> 
+         
+         <button class="btn-secondary" type="submit" name="Ass" value="Assessment 2">Assessment 2</button>
+
+         <button class="btn-secondary" type="submit" name="Ass" value="Assessment 3">Assessment 3</button>  
+
+
+    </form>
+
+
+
+  </div>
+
+
+
+
+</div>
+
+</main>
+
+{% endblock %}
