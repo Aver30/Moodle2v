@@ -13,6 +13,7 @@ app.secret_key = "development-key"
 
 
 
+
 @app.route("/")
 def index():
     session['email'] = None
@@ -77,13 +78,13 @@ def addRubric():
         satisfactory = request.form['column3']
         good = request.form['column4']
         totalMarks = request.form['column5']
-
+        assessment = request.form['ass_select']
         # Empty relaod page
         if criteria == '' or poor == '' or satisfactory == '' or good == '' or totalMarks == '':
             return redirect(url_for("addRubric"))
         
         # add row of rubric
-        newrow = FIT2101Rubric(request.form['column1'], request.form['column2'], request.form['column3'], request.form['column4'], request.form['column5'])
+        newrow = FIT2101Rubric(criteria, poor, satisfactory, good, totalMarks, assessment)
         db.session.add(newrow)
         db.session.commit()
 
@@ -146,6 +147,15 @@ def Lec_pageV2():
     return render_template("Lec-pageV2.html", name = nameDem)
 
 
+@app.route("/selectassess", methods=["GET", "POST"])
+def selectassess():
+    if request.method == "POST":
+        session['assessment'] = request.form['Ass']
+        return redirect(url_for('markstudent'))
+
+
+    return render_template('selectAssess.html')
+
 
 
 @app.route("/ViewStudents_Dem", methods=["GET", "POST"])
@@ -153,8 +163,7 @@ def ViewStudents_Dem():
     
     if request.method == 'POST':
         session['student'] = request.form['Mark']
-        return redirect(url_for("markstudent"))
-
+        return redirect(url_for("selectassess"))
 
     elif request.method == 'GET':
         email = session['email']
@@ -168,7 +177,7 @@ def ViewStudents_Dem():
             for i in students_list:
                 if i.classes == stu_classes:
                     listOfStudents.append(i)
-                    
+
             stu_classes = 'Class ' + str(user.classes)
                     
         elif user.role == 'L':
@@ -184,13 +193,35 @@ def markstudent():
     # Student in Session['student'] gives the email!!!
     email = session['student']
     user = FIT2101Student.query.filter_by(email=email).first()
-    
+    assignment = session['assessment']
+
+    rubrics = []
     listOfRubrics = FIT2101Rubric.query.all()
+    for item in listOfRubrics:
+        if item.assessment == assignment:
+            rubrics.append(item)
     
-    return render_template("markStudent.html", rubric = listOfRubrics, markStudent = user)
+    return render_template("markStudent.html", rubric = rubrics, markStudent = user, assessment=assignment )
+
+
 
 @app.route("/addgroup", methods=["GET","POST"])
 def addgroup():
+
+    if request.method == 'POST':
+       # If group name is empty redirect
+        if request.form["groupname"] is None:
+           return render_template("addGroups.html")
+
+        email = request.form['s2_select']
+        studentA = FIT2101Student.query.filter_by(email=email).first()
+        studentA.groups = request.form["groupname"] 
+        print(studentA.groups)
+        db.session.commit()
+
+        return redirect(url_for('Lec_pageV2'))
+
+
     email = session['email']
     user = User.query.filter_by(email=email).first()
 

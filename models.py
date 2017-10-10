@@ -36,6 +36,7 @@ class FIT2101Student(db.Model):
   assessment1 = db.Column(db.String(100))
   assessment2 = db.Column(db.String(100))
   assessment3 = db.Column(db.String(100))
+  groups = db.Column(db.String())
   
 
   def __init__(self, firstname, lastname, email, classes):
@@ -46,6 +47,7 @@ class FIT2101Student(db.Model):
     self.assessment3 = 0
     self.assessment2 = 0
     self.assessment1 = 0
+    self.groups = ""
 
   def setAss1(self, mark ):
     self.assessment1 = mark
@@ -55,6 +57,9 @@ class FIT2101Student(db.Model):
 
   def setAss3(self, mark):
     self.assessment3 = mark
+
+  def setgroup(self, group):
+    self.groups = group
 
 class FIT2101Rubric(db.Model):
   __tablename__ = 'fit2101rubric'

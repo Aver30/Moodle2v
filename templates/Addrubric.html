@@ -2,7 +2,7 @@
 
 {% block content %}
 	<main class="container signup-section">
-    <a class="btn-primary logout">logout</a>
+    <a href = "{{ url_for('logout') }}" class="btn-primary logout">logout</a>
     <div class="section-content">
         <h2>Rubric</h2>
 
@@ -35,23 +35,30 @@
         <th><input type="text" name="column5" style="width:250px;height:125px;"></th>
         </table>
 
-        <input class = "btn-primary" type="submit" value="Add More" name="submit">   
-        <input class = "btn-primary" type="submit" value="Submit" name="submit">   
+         
         
-
-        </div>
 
         <div class="form-group">
         <div class="input-group">
         <span class="input-group-addon">Choose Assessment: </span>
             <select name="ass_select" class="selectpicker form-control">
               
-              <option value="assessment1"> Assessment 1 </option>
-              <option value="assessment2"> Assessment 2 </option>
-              <option value="assessment3"> Assessment 3 </option>
+              <option value="Assessment 1"> Assessment 1 </option>
+              <option value="Assessment 2"> Assessment 2 </option>
+              <option value="Assessment 3"> Assessment 3 </option>
               
             </select>
         </div>
+        </div>
+
+
+        <input class = "btn-primary" type="submit" value="Add More" name="submit">   
+        <input class = "btn-primary" type="submit" value="Submit" name="submit"> 
+
+
+        </div>
+
+        
         </form>
 
       

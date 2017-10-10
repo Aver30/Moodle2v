@@ -26,7 +26,7 @@
         <span class="input-group-addon">Enter Student 1</span>
             <select name="s1_select" class="selectpicker form-control">
               {% for o in data %}
-              <option value="{{ o.name }}">{{ o.firstname }} {{o.lastname}}</option>
+              <option value="{{ o.email }}">{{ o.firstname }} {{o.lastname}}</option>
               {% endfor %}
             </select>
     </div>
@@ -37,7 +37,7 @@
         <span class="input-group-addon">Enter Student 2</span>
             <select name="s2_select" class="selectpicker form-control">
               {% for o in data %}
-              <option value="{{ o.name }}">{{ o.firstname }} {{o.lastname}}</option>
+              <option value="{{ o.email }}">{{ o.firstname }} {{o.lastname}}</option>
               {% endfor %}
             </select>
     </div>
@@ -48,7 +48,7 @@
         <span class="input-group-addon">Enter Student 3</span>
             <select name="s3_select" class="selectpicker form-control">
               {% for o in data %}
-              <option value="{{ o.name }}">{{ o.firstname }} {{o.lastname}}</option>
+              <option value="{{ o.email }}">{{ o.firstname }} {{o.lastname}}</option>
               {% endfor %}
             </select>
     </div>
