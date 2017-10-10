@@ -182,7 +182,7 @@ def ViewStudents_Dem():
 def markstudent():
 
     # Student in Session['student'] gives the email!!!
-    User = session['student']
+    email = session['student']
     user = FIT2101Student.query.filter_by(email=email).first()
     
     listOfRubrics = FIT2101Rubric.query.all()

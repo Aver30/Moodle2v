@@ -33,6 +33,9 @@ class FIT2101Student(db.Model):
   lastname = db.Column(db.String(100))
   email = db.Column(db.String(100))
   classes = db.Column(db.String(100))
+  assessment1 = db.Column(db.String(100))
+  assessment2 = db.Column(db.String(100))
+  assessment3 = db.Column(db.String(100))
   
 
   def __init__(self, firstname, lastname, email, classes):
@@ -40,8 +43,18 @@ class FIT2101Student(db.Model):
     self.lastname = lastname.title()
     self.email = email.lower()
     self.classes = classes.lower()
+    self.assessment3 = 0
+    self.assessment2 = 0
+    self.assessment1 = 0
 
+  def setAss1(self, mark ):
+    self.assessment1 = mark
 
+  def setAss2(self, mark):
+    self.assessment2 = mark
+
+  def setAss3(self, mark):
+    self.assessment3 = mark
 
 class FIT2101Rubric(db.Model):
   __tablename__ = 'fit2101rubric'
