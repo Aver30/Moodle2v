@@ -9,21 +9,26 @@
 </head>
 <main class="container signup-section">
  <div class="section-content">
-        <h2> {{ markStudent.firstname }} <br> {{ markStudent.lastname }} </h2>
+        <h2> {% print(markStudent.firstname, end=" ") %} 
+             {% print(markStudent.lastname) %} 
+             {% print(" ") %}</h2>
      
              <table class="mdl-data-table mdl-js-data-table">
           <thead>
             <tr>
+              <th class="mdl-data-table__cell--non-numeric">Criteria</th>
               <th class="mdl-data-table__cell--non-numeric">Poor</th>
               <th class="mdl-data-table__cell--non-numeric">Satisfactory</th>
               <th class="mdl-data-table__cell--non-numeric">Good</th>
             </tr>
           </thead>
+                 
           {% for i in rubric %}
               <tbody>
                     <tr>
+                      <td class="mdl-data-table__cell--non-numeric"> {{ i.criteria }} </td>
                       <td class="mdl-data-table__cell--non-numeric"> {{ i.poor }} </td>
-                      <td class="mdl-data-table__cell--non-numeric"> {{ i.statisfactory }} </td>
+                      <td class="mdl-data-table__cell--non-numeric"> {{ i.satisfactory }} </td>
                       <td class="mdl-data-table__cell--non-numeric"> {{ i.good }} </td>
                     </tr>
               </tbody>
@@ -31,7 +36,7 @@
                  
         </table>
      
-     <h3>Enter a mark</h3>
+     <h4>Enter a mark</h4>
      
          <!-- Numeric Textfield -->
         <form action="#">
