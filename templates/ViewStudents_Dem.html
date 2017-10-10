@@ -8,7 +8,7 @@
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </head>
 
-<ul class="demo-list-icon mdl-list">
+
 <main class="container signup-section">
 
 <a href = "{{ url_for('logout') }}" class="btn-primary logout">logout</a>
@@ -16,25 +16,33 @@
     <div class="section-content">
         <h1> {{ requiredClass }} </h1>
         <h2>Students</h2>
-        {% for student in students %}
-            <li class="mdl-list__item">
-              <span class="mdl-list__item-primary-content">
-              <i class="material-icons mdl-list__item-icon">person</i>
-                    {{ student.firstname }} {{ student.lastname }}
-                  
-                    <main class="container signup-section">
-                        <form action="/ViewStudents_Dem" method="POST" >
+        
+           <table class="mdl-data-table mdl-js-data-table">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">First Name</th>
+              <th class="mdl-data-table__cell--non-numeric">Last Name</th>
+              <th class="mdl-data-table__cell--non-numeric">Class</th>
+                <th class="mdl-data-table__cell--non-numeric">Mark</th>
+            </tr>
+          </thead>
+                {% for student in students %}
+                      <tbody>
+                        <tr>
+                          <td class="mdl-data-table__cell--non-numeric">  {{ student.firstname }} </td>
+                          <td class="mdl-data-table__cell--non-numeric"> {{ student.lastname }} </td>
+                          <td class="mdl-data-table__cell--non-numeric"> {{ student.classes }} </td>
+                          <td class="mdl-data-table__cell--non-numeric"> <form action="/ViewStudents_Dem" method="POST" >
                         <button class="btn-primary" type="submit" name="Mark" value="{{  student.email  }}">
                         Mark
-                        </button> </form>
-                     </main>
-              </span>
-            </li>
-
-        {% endfor %}
+                        </button> </form> </td>
+                            
+                        </tr>
+                      </tbody>
+                {% endfor %}
+        </table>
 
     </div>
   </main>
-</ul>
 
 {% endblock %}
