@@ -19,13 +19,16 @@
               <th class="mdl-data-table__cell--non-numeric">Good</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td class="mdl-data-table__cell--non-numeric"> {{ rubric.poor }} </td>
-              <td class="mdl-data-table__cell--non-numeric"> {{ rubric.statisfactory }} </td>
-              <td class="mdl-data-table__cell--non-numeric"> {{ rubric.good }} </td>
-            </tr>
-          </tbody>
+          {% for i in rubric %}
+              <tbody>
+                    <tr>
+                      <td class="mdl-data-table__cell--non-numeric"> {{ i.poor }} </td>
+                      <td class="mdl-data-table__cell--non-numeric"> {{ i.statisfactory }} </td>
+                      <td class="mdl-data-table__cell--non-numeric"> {{ i.good }} </td>
+                    </tr>
+              </tbody>
+          {% endfor %}
+                 
         </table>
      
      <h3>Enter a mark</h3>
