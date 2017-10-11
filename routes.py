@@ -189,19 +189,46 @@ def ViewStudents_Dem():
 
 @app.route("/markstudent", methods=["GET","POST"])
 def markstudent():
-
     # Student in Session['student'] gives the email!!!
     email = session['student']
-    user = FIT2101Student.query.filter_by(email=email).first()
+    student = FIT2101Student.query.filter_by(email=email).first()
     assignment = session['assessment']
-
     rubrics = []
     listOfRubrics = FIT2101Rubric.query.all()
     for item in listOfRubrics:
         if item.assessment == assignment:
             rubrics.append(item)
-    
-    return render_template("markStudent.html", rubric = rubrics, markStudent = user, assessment=assignment )
+
+    if request.method == "POST":
+        totalMarks = 0
+        actualMark = 0
+        for i in range(len(rubrics)):
+            item = rubrics[i]
+            totalMarks += int(item.totalmarks)
+            actualMark += int(request.form[item.criteria])
+
+     
+        # Now use student email and assessment to insert actual marks.
+        if assignment == 'Assessment 1':
+            student.assessment1 = actualMark
+            db.session.commit()
+            student.ass1feed = str(request.form['feed'])
+
+        elif assignment == "Assessment 2":
+            student.assessment2 = actualMark
+            db.session.commit() 
+            student.ass2feed = str(request.form['feed'])
+        elif assignment == 'Assignment 3':
+            student.assessment3 = actualMark
+            db.session.commit() 
+            student.ass3feed = str(request.form['feed'])
+
+        db.session.commit()
+        return redirect(url_for('ViewStudents_Dem'))
+
+
+
+    return render_template("markStudent.html", rubric = rubrics, markStudent = student, assessment=assignment )
 
 
 
