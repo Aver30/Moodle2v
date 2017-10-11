@@ -11,8 +11,6 @@
 
 <main class="container signup-section">
 
-<a href = "{{ url_for('logout') }}" class="btn-primary logout">logout</a>
-
     <div class="section-content">
         <h1> {{ requiredClass }} </h1>
         <h2>Students</h2>
@@ -20,9 +18,10 @@
            <table class="mdl-data-table mdl-js-data-table">
           <thead>
             <tr>
-              <th class="mdl-data-table__cell--non-numeric">First Name</th>
-              <th class="mdl-data-table__cell--non-numeric">Last Name</th>
-              <th class="mdl-data-table__cell--non-numeric">Class</th>
+                <th class="mdl-data-table__cell--non-numeric">First Name</th>
+                <th class="mdl-data-table__cell--non-numeric">Last Name</th>
+                <th class="mdl-data-table__cell--non-numeric">Class</th>
+                <th class="mdl-data-table__cell--non-numeric">Groups</th>
                 <th class="mdl-data-table__cell--non-numeric">Mark</th>
             </tr>
           </thead>
@@ -32,6 +31,7 @@
                           <td class="mdl-data-table__cell--non-numeric">  {{ student.firstname }} </td>
                           <td class="mdl-data-table__cell--non-numeric"> {{ student.lastname }} </td>
                           <td class="mdl-data-table__cell--non-numeric"> {{ student.classes }} </td>
+                            <td class="mdl-data-table__cell--non-numeric"> {{ student.groups }} </td>
                           <td class="mdl-data-table__cell--non-numeric"> <form action="/ViewStudents_Dem" method="POST" >
                         <button class="btn-primary" type="submit" name="Mark" value="{{  student.email  }}">
                         Mark
@@ -44,5 +44,8 @@
 
     </div>
   </main>
+    <main class="container signup-section">
+        <a href = "{{ url_for('logout') }}" class="btn-primary logout">logout</a>
+    </main>
 
 {% endblock %}
