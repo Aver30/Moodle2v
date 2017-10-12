@@ -12,8 +12,6 @@ db.init_app(app)
 app.secret_key = "development-key"
 
 
-
-
 @app.route("/")
 def index():
     session['email'] = None
@@ -212,16 +210,20 @@ def markstudent():
 
         # Now use student email and assessment to insert actual marks.
         if assignment == 'Assessment 1':
-            student.assessment1 = actualMark
+            print(totalMarks)
+            student.assessment1 = (actualMark * 100 / totalMarks)
+            print(student.assessment1)
             db.session.commit()
             student.ass1feed = str(request.form['feed'])
 
         elif assignment == "Assessment 2":
-            student.assessment2 = actualMark
+            student.assessment2 = (actualMark / totalMarks) * 100
+            print(student.assessment2)
             db.session.commit()
             student.ass2feed = str(request.form['feed'])
         elif assignment == 'Assignment 3':
-            student.assessment3 = actualMark
+            student.assessment3 = (actualMark / totalMarks) * 100
+            print(student.assessment3)
             db.session.commit()
             student.ass3feed = str(request.form['feed'])
 
@@ -230,7 +232,27 @@ def markstudent():
 
     return render_template("markStudent.html", rubric = rubrics, markStudent = student, assessment=assignment )
 
+@app.route("/genReport", methods=["GET", "POST"])
+def genReport():
 
+    if request.method == "POST":
+        classes = request.form["selectClass"]
+        Students = []
+        AllStudents = FIT2101Student.query.all()
+        for item in AllStudents:
+            if Students.classes == classes:
+                Students.append(item)
+
+        return render_template("reportPage.html", AllStudents = Students)
+
+    Student = FIT2101Student.query.all()
+    classes = []
+    for item in Student:
+        if item.classes not in classes:
+            classes.append(item.classes)
+
+
+    return render_template("selectClass.html", data=classes)
 
 @app.route("/addgroup", methods=["GET","POST"])
 def addgroup():

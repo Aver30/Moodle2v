@@ -18,7 +18,7 @@
           <thead>
             <tr>
                 <th class="mdl-data-table__cell--non-numeric">Assessments</th>
-                <th class="mdl-data-table__cell--non-numeric">Mark</th>
+                <th class="mdl-data-table__cell--non-numeric">Mark (%)</th>
                 <th class="mdl-data-table__cell--non-numeric">Feedback</th>
                 <th class="mdl-data-table__cell--non-numeric">Edit Mark</th>
             </tr>
@@ -28,8 +28,8 @@
                            <form action="/selectassess" method="POST" >
                         <tr>
                           <th class="mdl-data-table__cell--non-numeric"> Assessment 1 </th>
-                          <td class="mdl-data-table__cell--non-numeric"> {{markStudent.assessment1 }}</td>
-                          <td class="mdl-data-table__cell--non-numeric"> {{ markStudent.ass1feed }} </td>
+                          <td class="mdl-data-table__cell--non-numeric"> {{markStudent.assessment1 }} %</td>
+                          <td class="mdl-data-table__cell--non-numeric"> {{ markStudent.ass1feed }}</td>
                           <td class="mdl-data-table__cell--non-numeric">
                             <button class="btn-secondary" type="submit" name="Ass" value="Assessment 1">Assessment 1</button>
                             </td>
@@ -39,8 +39,8 @@
                       <tbody>
                         <tr>
                           <th class="mdl-data-table__cell--non-numeric"> Assessment 2 </th>
-                          <td class="mdl-data-table__cell--non-numeric"> {{markStudent.assessment2 }}</td>
-                          <td class="mdl-data-table__cell--non-numeric"> {{ markStudent.ass2feed }} </td>
+                          <td class="mdl-data-table__cell--non-numeric"> {{markStudent.assessment2 }} </td>
+                          <td class="mdl-data-table__cell--non-numeric"> {{ markStudent.ass2feed }}</td>
                           <td class="mdl-data-table__cell--non-numeric">
                               <button class="btn-secondary" type="submit" name="Ass" value="Assessment 2">Assessment 2</button>
                             </td>
@@ -51,7 +51,7 @@
                         <tr>
                           <th class="mdl-data-table__cell--non-numeric"> Assessment 3 </th>
                           <td class="mdl-data-table__cell--non-numeric"> {{markStudent.assessment3}} </td>
-                          <td class="mdl-data-table__cell--non-numeric"> {{ markStudent.ass3feed }} </td>
+                          <td class="mdl-data-table__cell--non-numeric"> {{ markStudent.ass3feed }}</td>
                           <td class="mdl-data-table__cell--non-numeric">
                                 <button class="btn-secondary" type="submit" name="Ass" value="Assessment 3">Assessment 3</button>
                             </td>
