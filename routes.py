@@ -149,12 +149,14 @@ def Lec_pageV2():
 
 @app.route("/selectassess", methods=["GET", "POST"])
 def selectassess():
+    studentemail = session['student']
+    markstudent = FIT2101Student.query.filter_by(email=studentemail).first()
     if request.method == "POST":
         session['assessment'] = request.form['Ass']
         return redirect(url_for('markstudent'))
 
 
-    return render_template('selectAssess.html')
+    return render_template('selectAssess.html', markStudent = markstudent)
 
 
 
