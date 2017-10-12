@@ -8,53 +8,59 @@
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </head>
 
-<main class = "hero-section">
-<div class = "container">
+<main class="container signup-section">
+
   <div class = "section-content">
-     <h2>Select Assessment</h2>
-    
+        <h3> {{ markStudent.firstname }} {{ markStudent.lastname }} 
+              </h3>
 
-     <form action="/selectassess" method="POST" >
-        <button class="btn-secondary" type="submit" name="Ass" value="Assessment 1">Assessment 1</button> 
-         
-         <button class="btn-secondary" type="submit" name="Ass" value="Assessment 2">Assessment 2</button>
-
-         <button class="btn-secondary" type="submit" name="Ass" value="Assessment 3">Assessment 3</button>  
-
-
-    </form>
-  
      <table class="mdl-data-table mdl-js-data-table">
           <thead>
             <tr>
-                <th class="mdl-data-table__cell--non-numeric">Assessment 1</th>
-                <th class="mdl-data-table__cell--non-numeric">Assessment 1 Feedback</th>
-                <th class="mdl-data-table__cell--non-numeric">Assessment 2</th>
-                 <th class="mdl-data-table__cell--non-numeric">Assessment 2 Feedback</th>
-                <th class="mdl-data-table__cell--non-numeric">Assessment 3</th>
-                 <th class="mdl-data-table__cell--non-numeric">Assessment 3 Feedback</th>
+                <th class="mdl-data-table__cell--non-numeric">Assessments</th>
+                <th class="mdl-data-table__cell--non-numeric">Feedback</th>
+                <th class="mdl-data-table__cell--non-numeric">Mark/Edit Mark</th>
             </tr>
           </thead>
+        
                       <tbody>
+                           <form action="/selectassess" method="POST" >
                         <tr>
-                          <td class="mdl-data-table__cell--non-numeric"> 10 </td>
-                          <td class="mdl-data-table__cell--non-numeric"> 10 </td>
-                          <td class="mdl-data-table__cell--non-numeric"> 10 </td>
-                          <td class="mdl-data-table__cell--non-numeric"> 10 </td>
-                          <td class="mdl-data-table__cell--non-numeric"> 10 </td>
-                          <td class="mdl-data-table__cell--non-numeric"> 10 </td>
-                            
+                          <th class="mdl-data-table__cell--non-numeric"> Assessment 1 </th>
+                          <td class="mdl-data-table__cell--non-numeric"> </td>
+                          <td class="mdl-data-table__cell--non-numeric"> 
+                            <button class="btn-secondary" type="submit" name="Ass" value="Assessment 1">Assessment 1</button> 
+                            </td>
                         </tr>
                       </tbody>
+                 
+                      <tbody>
+                        <tr>
+                          <th class="mdl-data-table__cell--non-numeric"> Assessment 2 </th>
+                          <td class="mdl-data-table__cell--non-numeric"> </td>
+                          <td class="mdl-data-table__cell--non-numeric"> 
+                              <button class="btn-secondary" type="submit" name="Ass" value="Assessment 2">Assessment 2</button>
+                            </td>
+                        </tr>
+                      </tbody>
+         
+                      <tbody>
+                        <tr>
+                          <th class="mdl-data-table__cell--non-numeric"> Assessment 3 </th>
+                          <td class="mdl-data-table__cell--non-numeric"> </td>
+                          <td class="mdl-data-table__cell--non-numeric">  
+                                <button class="btn-secondary" type="submit" name="Ass" value="Assessment 3">Assessment 3</button>  
+                            </td>
+                        </tr>
+                            </form>
+                      </tbody>
+         
         </table>
 
 
   </div>
 
 
-
-
-</div>
 
 </main>
 
