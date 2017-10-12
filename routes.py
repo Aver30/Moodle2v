@@ -26,11 +26,11 @@ def login():
     if request.method == "POST":
         if form.validate() == False:
             return render_template("login.html", form=form)
-        
+
         else:
             email = form.email.data
             password = form.password.data
-            
+
             # Get user from the databases
             user = User.query.filter_by(email=email).first()
 
@@ -53,12 +53,12 @@ def login():
 def signup():
 
     form = SignupForm()
-    
+
     if request.method == "POST":
         if form.validate() == False:
             return render_template('signup.html', form=form)
         else:
-            
+
             newuser = User(form.first_name.data, form.last_name.data, form.email.data, 'D', form.password.data, form.classes.data, 'fit2101');
             db.session.add(newuser)
             db.session.commit()
@@ -82,7 +82,7 @@ def addRubric():
         # Empty relaod page
         if criteria == '' or poor == '' or satisfactory == '' or good == '' or totalMarks == '':
             return redirect(url_for("addRubric"))
-        
+
         # add row of rubric
         newrow = FIT2101Rubric(criteria, poor, satisfactory, good, totalMarks, assessment)
         db.session.add(newrow)
@@ -107,7 +107,7 @@ def enrollstd():
         if form.validate() == False:
             return render_template('enrollstd.html', form=form)
         else:
-            
+
             newstudent = FIT2101Student(form.first_name.data, form.last_name.data, form.email.data, form.classes.data)
             db.session.add(newstudent)
             db.session.commit()
@@ -121,7 +121,7 @@ def enrollstd():
 @app.route("/dem-page", methods=["GET", "POST"])
 def dem_page():
     if request.method == "POST":
-       
+
         if request.form["AddGroup"] == 'AddGroup':
             return redirect(url_for('addgroup'))
 
@@ -160,7 +160,7 @@ def selectassess():
 
 @app.route("/ViewStudents_Dem", methods=["GET", "POST"])
 def ViewStudents_Dem():
-    
+
     if request.method == 'POST':
         session['student'] = request.form['Mark']
         return redirect(url_for("selectassess"))
@@ -168,7 +168,7 @@ def ViewStudents_Dem():
     elif request.method == 'GET':
         email = session['email']
         user = User.query.filter_by(email=email).first()
-       
+
         # Displaying Students:
         if user.role == 'D':
             stu_classes = user.classes
@@ -179,7 +179,7 @@ def ViewStudents_Dem():
                     listOfStudents.append(i)
 
             stu_classes = 'Class ' + str(user.classes)
-                    
+
         elif user.role == 'L':
             listOfStudents = FIT2101Student.query.all()
             stu_classes = 'Lecturer'
@@ -207,7 +207,7 @@ def markstudent():
             totalMarks += int(item.totalmarks)
             actualMark += int(request.form[item.criteria])
 
-     
+
         # Now use student email and assessment to insert actual marks.
         if assignment == 'Assessment 1':
             student.assessment1 = actualMark
@@ -216,17 +216,15 @@ def markstudent():
 
         elif assignment == "Assessment 2":
             student.assessment2 = actualMark
-            db.session.commit() 
+            db.session.commit()
             student.ass2feed = str(request.form['feed'])
         elif assignment == 'Assignment 3':
             student.assessment3 = actualMark
-            db.session.commit() 
+            db.session.commit()
             student.ass3feed = str(request.form['feed'])
 
         db.session.commit()
         return redirect(url_for('ViewStudents_Dem'))
-
-
 
     return render_template("markStudent.html", rubric = rubrics, markStudent = student, assessment=assignment )
 
@@ -237,16 +235,23 @@ def addgroup():
 
     if request.method == 'POST':
        # If group name is empty redirect
-        if request.form["groupname"] is None:
+       if request.form["groupname"] is None:
            return render_template("addGroups.html")
 
-        email = request.form['s2_select']
-        studentA = FIT2101Student.query.filter_by(email=email).first()
-        studentA.groups = request.form["groupname"] 
-        print(studentA.groups)
-        db.session.commit()
+       email = request.form['s1_select']
+       studentA = FIT2101Student.query.filter_by(email=email).first()
+       studentA.groups = request.form["groupname"]
 
-        return redirect(url_for('Lec_pageV2'))
+       email = request.form['s2_select']
+       studentB = FIT2101Student.query.filter_by(email=email).first()
+       studentB.groups = request.form["groupname"]
+
+       email = request.form['s3_select']
+       studentC = FIT2101Student.query.filter_by(email=email).first()
+       studentC.groups = request.form["groupname"]
+       db.session.commit()
+
+       return redirect(url_for('Lec_pageV2'))
 
 
     email = session['email']
@@ -260,7 +265,7 @@ def addgroup():
         for i in students_list:
             if i.classes == stu_classes:
                 listOfStudents.append(i)
-                
+
     elif user.role == 'L':
         listOfStudents = FIT2101Student.query.all()
         stu_classes = 'Lecturer'
