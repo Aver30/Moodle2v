@@ -260,7 +260,7 @@ def genReport():
                 Students.append(item)
 
         return render_template("reportPage.html", AllStudents = Students, user = userrole)
-    
+
     if request.method == "GET":
         Student = FIT2101Student.query.all()
         classes = []
@@ -268,7 +268,7 @@ def genReport():
             if item.classes not in classes:
                 classes.append(item.classes)
 
-        return render_template("selectClass.html", data=classes, user = userrole)
+        return render_template("selectclass.html", data=classes, user = userrole)
 
 @app.route("/addgroup", methods=["GET","POST"])
 def addgroup():
