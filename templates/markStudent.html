@@ -8,10 +8,18 @@
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </head>
 <main class="container signup-section">
+  {% if user == "D"  %}
+  <a href = "{{ url_for('dem_page') }}" class = "btn-primary">Home</a>
+  {% endif %}
+
+  {% if user == "L"  %}
+  <a href = "{{ url_for('Lec_pageV2') }}" class = "btn-primary">Home</a>
+  {% endif %}
  <div class="section-content">
         <h2>{{  assessment  }} </h2>
-        <h3> {{ markStudent.firstname }} {{ markStudent.lastname }} 
+        <h3> {{ markStudent.firstname }} {{ markStudent.lastname }}
               </h3>
+
       <form action="/markstudent" method="POST">
              <table class="mdl-data-table mdl-js-data-table">
           <thead>
@@ -21,10 +29,10 @@
               <th class="mdl-data-table__cell--non-numeric">Satisfactory</th>
               <th class="mdl-data-table__cell--non-numeric">Good</th>
               <th class="mdl-data-table__cell--non-numeric">Marks</th>
-                
+
             </tr>
           </thead>
-                 
+
           {% for i in rubric %}
               <tbody>
                     <tr>
@@ -34,28 +42,28 @@
                       <td class="mdl-data-table__cell--non-numeric"> {{ i.good }} </td>
                       <td class="mdl-data-table__cell--non-numeric">
                        <!-- Numeric Textfield -->
-                            
-                              
+
+
                               <div class="mdl-textfield mdl-js-textfield">
                                 <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2" name="{{ i.criteria }}">
                                  <label class="mdl-textfield__label" for="sample2">Mark out of {{ i.totalmarks }}</label>
                                 <span class="mdl-textfield__error">Input is not a number!</span>
                               </div>
-                            
+
                             </form>
                         </td>
-                        
+
                     </tr>
               </tbody>
           {% endfor %}
-                 
+
         </table>
         FeedBack: <input type="text" name="feed" style="width:250px;height:125px;">
 
 
         <input class = "btn-primary" type="submit" value="Submit" name="submit">
         </form>
-  
+
  </div>
 </main>
 
@@ -65,7 +73,7 @@
 <a href = "{{ url_for('logout') }}" class="btn-primary logout">logout</a>
 
 
-   
+
   </main>
 </ul>
 

@@ -10,9 +10,18 @@
 
 <main class="container signup-section">
 
+
+
   <div class = "section-content">
         <h3> {{ markStudent.firstname }} {{ markStudent.lastname }}
               </h3>
+              {% if user == "D"  %}
+              <a href = "{{ url_for('dem_page') }}" class = "btn-primary">Home</a>
+              {% endif %}
+
+              {% if user == "L"  %}
+              <a href = "{{ url_for('Lec_pageV2') }}" class = "btn-primary">Home</a>
+              {% endif %}
 
      <table class="mdl-data-table mdl-js-data-table">
           <thead>

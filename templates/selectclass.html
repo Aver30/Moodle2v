@@ -10,6 +10,14 @@
 
 <main class="container signup-section">
 
+{% if user == "D"  %}
+<a href = "{{ url_for('dem_page') }}" class = "btn-primary">Home</a>
+{% endif %}
+
+{% if user == "L"  %}
+<a href = "{{ url_for('Lec_pageV2') }}" class = "btn-primary">Home</a>
+{% endif %}
+
   <div class = "section-content">
     <form class="form-group" method="POST" action="/genReport">
 
@@ -19,7 +27,7 @@
             <span class="input-group-addon">Select Class</span>
                 <select name="selectClass" class="selectpicker form-control">
                   {% for o in data %}
-                  <option value="{{ o }}"> o</option>
+                  <option value="{{ o }}"> {{ o }}</option>
                   {% endfor %}
                 </select>
         </div>

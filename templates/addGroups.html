@@ -10,13 +10,21 @@
 
  <div class="section-content">
         <h2> {{ requiredClass }} </h2>
+
+
  </div>
 
 <ul class="demo-list-icon mdl-list">
 <main class="container signup-section">
 
 <a href = "{{ url_for('logout') }}" class="btn-primary logout">logout</a>
+{% if user == "D"  %}
+<a href = "{{ url_for('dem_page') }}" class = "btn-primary">Home</a>
+{% endif %}
 
+{% if user == "L"  %}
+<a href = "{{ url_for('Lec_pageV2') }}" class = "btn-primary">Home</a>
+{% endif %}
 
 <form class="form-group" method="POST" action="{{ url_for('addgroup') }}">
 

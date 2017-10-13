@@ -68,6 +68,10 @@ def signup():
 
 @app.route("/addRubric", methods=["GET", "POST"])
 def addRubric():
+    # Get user details
+    email = session['email']
+    user = User.query.filter_by(email=email).first()
+    userrole = user.role
 
     if request.method == "POST":
 
@@ -87,19 +91,18 @@ def addRubric():
         db.session.commit()
 
         if request.form['submit'] == "Add More":
-            return render_template("Addrubric.html")
+            return render_template("Addrubric.html", user = userrole)
         else:
             return render_template("Lec-pageV2.html")
 
 
-    return render_template("Addrubric.html")
+    return render_template("Addrubric.html", user = userrole)
 
 
 
 @app.route("/enrollstd", methods=["GET","POST"])
 def enrollstd():
     form = EnrollForm()
-
     if request.method == "POST":
 
         if form.validate() == False:
@@ -147,6 +150,12 @@ def Lec_pageV2():
 
 @app.route("/selectassess", methods=["GET", "POST"])
 def selectassess():
+    # Get user details
+    email = session['email']
+    user = User.query.filter_by(email=email).first()
+    userrole = user.role
+
+    
     studentemail = session['student']
     markstudent = FIT2101Student.query.filter_by(email=studentemail).first()
     if request.method == "POST":
@@ -154,12 +163,15 @@ def selectassess():
         return redirect(url_for('markstudent'))
 
 
-    return render_template('selectAssess.html', markStudent = markstudent)
+    return render_template('selectAssess.html', markStudent = markstudent, user = userrole)
 
 
 
 @app.route("/ViewStudents_Dem", methods=["GET", "POST"])
 def ViewStudents_Dem():
+    email = session['email']
+    user = User.query.filter_by(email=email).first()
+    userrole = user.role
 
     if request.method == 'POST':
         session['student'] = request.form['Mark']
@@ -184,11 +196,15 @@ def ViewStudents_Dem():
             listOfStudents = FIT2101Student.query.all()
             stu_classes = 'Lecturer'
 
-        return render_template("ViewStudents_Dem.html", students = listOfStudents, requiredClass = stu_classes)
+        return render_template("ViewStudents_Dem.html", students = listOfStudents, requiredClass = stu_classes, user = userrole)
 
 
 @app.route("/markstudent", methods=["GET","POST"])
 def markstudent():
+    # Get user detials
+    email = session['email']
+    user = User.query.filter_by(email=email).first()
+    userrole = user.role
     # Student in Session['student'] gives the email!!!
     email = session['student']
     student = FIT2101Student.query.filter_by(email=email).first()
@@ -210,40 +226,40 @@ def markstudent():
 
         # Now use student email and assessment to insert actual marks.
         if assignment == 'Assessment 1':
-            print(totalMarks)
             student.assessment1 = (actualMark * 100 / totalMarks)
-            print(student.assessment1)
             db.session.commit()
             student.ass1feed = str(request.form['feed'])
 
         elif assignment == "Assessment 2":
-            student.assessment2 = (actualMark / totalMarks) * 100
-            print(student.assessment2)
+            student.assessment2 = (actualMark * 100 / totalMarks)
             db.session.commit()
             student.ass2feed = str(request.form['feed'])
         elif assignment == 'Assignment 3':
-            student.assessment3 = (actualMark / totalMarks) * 100
-            print(student.assessment3)
+            student.assessment3 = (actualMark  * 100 / totalMarks)
             db.session.commit()
             student.ass3feed = str(request.form['feed'])
 
         db.session.commit()
         return redirect(url_for('ViewStudents_Dem'))
 
-    return render_template("markStudent.html", rubric = rubrics, markStudent = student, assessment=assignment )
+    return render_template("markStudent.html", rubric = rubrics, markStudent = student, assessment=assignment, user = userrole )
 
 @app.route("/genReport", methods=["GET", "POST"])
 def genReport():
+
+    email = session['email']
+    user = User.query.filter_by(email=email).first()
+    userrole = user.role
 
     if request.method == "POST":
         classes = request.form["selectClass"]
         Students = []
         AllStudents = FIT2101Student.query.all()
         for item in AllStudents:
-            if Students.classes == classes:
+            if item.classes == classes:
                 Students.append(item)
 
-        return render_template("reportPage.html", AllStudents = Students)
+        return render_template("reportPage.html", AllStudents = Students, user = userrole)
 
     Student = FIT2101Student.query.all()
     classes = []
@@ -251,8 +267,7 @@ def genReport():
         if item.classes not in classes:
             classes.append(item.classes)
 
-
-    return render_template("selectClass.html", data=classes)
+    return render_template("selectClass.html", data=classes, user = userrole)
 
 @app.route("/addgroup", methods=["GET","POST"])
 def addgroup():
@@ -280,6 +295,7 @@ def addgroup():
 
     email = session['email']
     user = User.query.filter_by(email=email).first()
+    userrole = user.role
 
     # Displaying Students:
     if user.role == 'D':
@@ -294,7 +310,7 @@ def addgroup():
         listOfStudents = FIT2101Student.query.all()
         stu_classes = 'Lecturer'
 
-    return render_template("addGroups.html", data=listOfStudents )
+    return render_template("addGroups.html", data=listOfStudents, user = userrole )
 
 
 @app.route("/logout")
