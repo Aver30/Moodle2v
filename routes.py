@@ -155,7 +155,7 @@ def selectassess():
     user = User.query.filter_by(email=email).first()
     userrole = user.role
 
-    
+
     studentemail = session['student']
     markstudent = FIT2101Student.query.filter_by(email=studentemail).first()
     if request.method == "POST":
@@ -271,6 +271,9 @@ def genReport():
 
 @app.route("/addgroup", methods=["GET","POST"])
 def addgroup():
+    email = session['email']
+    user = User.query.filter_by(email=email).first()
+    userrole = user.role
 
     if request.method == 'POST':
        # If group name is empty redirect
@@ -289,9 +292,10 @@ def addgroup():
        studentC = FIT2101Student.query.filter_by(email=email).first()
        studentC.groups = request.form["groupname"]
        db.session.commit()
-
-       return redirect(url_for('Lec_pageV2'))
-
+       if userrole == "D":
+           return redirect(url_for('dem_page'))
+       else:
+           return redirect(url_for('Lec_pageV2'))
 
     email = session['email']
     user = User.query.filter_by(email=email).first()
