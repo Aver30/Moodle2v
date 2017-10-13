@@ -2,15 +2,16 @@
 
 {% block content %}
   <main class="container signup-section">
-    {% if user == "D"  %}
-    <a href = "{{ url_for('dem_page') }}" class = "btn-primary">Home</a>
-    {% endif %}
-
-    {% if user == "L"  %}
-    <a href = "{{ url_for('Lec_pageV2') }}" class = "btn-primary">Home</a>
-    {% endif %}
-
     
+    {% if user == "D"  %}
+		<a href = "{{ url_for('dem_page') }}" class = "btn-primar logouty">Home</a>
+		{% endif %}
+
+		{% if user == "L"  %}
+		<a href = "{{ url_for('Lec_pageV2') }}" class = "btn-primary logout">Home</a>
+		{% endif %}
+
+
     <div class="section-content">
       <h2>Enroll Student</h2>
 
