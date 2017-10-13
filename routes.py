@@ -226,16 +226,16 @@ def markstudent():
 
         # Now use student email and assessment to insert actual marks.
         if assignment == 'Assessment 1':
-            student.assessment1 = (actualMark * 100 / totalMarks)
+            student.assessment1 = round((actualMark * 100 / totalMarks))
             db.session.commit()
             student.ass1feed = str(request.form['feed'])
 
         elif assignment == "Assessment 2":
-            student.assessment2 = (actualMark * 100 / totalMarks)
+            student.assessment2 = round((actualMark * 100 / totalMarks))
             db.session.commit()
             student.ass2feed = str(request.form['feed'])
         elif assignment == 'Assignment 3':
-            student.assessment3 = (actualMark  * 100 / totalMarks)
+            student.assessment3 = round((actualMark  * 100 / totalMarks))
             db.session.commit()
             student.ass3feed = str(request.form['feed'])
 
@@ -269,6 +269,24 @@ def genReport():
                 classes.append(item.classes)
 
         return render_template("selectclass.html", data=classes, user = userrole)
+
+@app.route("/demGenRep", methods=["GET", "POST"])
+def demGenRep():
+    email = session['email']
+    user = User.query.filter_by(email=email).first()
+    userrole = user.role
+    classes = user.classes
+    Students = []
+    AllStudents = FIT2101Student.query.all()
+    for item in AllStudents:
+        if item.classes == classes:
+            Students.append(item)
+            
+    return render_template("reportPage.html", AllStudents = Students, user = userrole)
+
+
+
+
 
 @app.route("/addgroup", methods=["GET","POST"])
 def addgroup():
